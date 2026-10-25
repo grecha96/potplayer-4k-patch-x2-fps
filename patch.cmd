@@ -1,0 +1,12 @@
+@echo off
+chcp 65001 >nul
+setlocal
+set "SCRIPT_DIR=%~dp0"
+
+if /i "%~1"=="-Revert" (
+    powershell -NoProfile -ExecutionPolicy Bypass -File "%SCRIPT_DIR%patch.ps1" -Revert
+    exit /b
+)
+
+powershell -NoProfile -ExecutionPolicy Bypass -File "%SCRIPT_DIR%patch.ps1"
+endlocal
