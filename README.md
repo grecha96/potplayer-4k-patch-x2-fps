@@ -1,4 +1,3 @@
-[README.md](https://github.com/user-attachments/files/33928980/README.md)
 # PotPlayer 4K Patch — удвоение кадров на 4K
 
 Патч для мода [«60 FPS в PotPlayer»](https://hdpotok.ru/vklyuchit-60-fps/):
