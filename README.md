@@ -1,6 +1,6 @@
 # potplayer-4k-patch-x2-fps
 Патч для мода https://hdpotok.ru/vklyuchit-60-fps/ работает только в формате х2 на разрешение видео до 4к
-[README.md](https://github.com/user-attachments/files/33928803/README.md)
+[README.md](https://github.com/user-attachments/files/33928823/README.md)
 # PotPlayer 4K Patch — удвоение кадров на 4K
 
 Патч для мода удвоения кадров (2x FPS) в PotPlayer. Снимает жёсткое ограничение
