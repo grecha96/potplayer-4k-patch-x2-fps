@@ -87,6 +87,31 @@ if ($potVer -and $potVer -notmatch ('^' + [regex]::Escape($testedMajor))) {
     Write-Both 'Continuing - unrecognised files will be skipped, not modified.'
 }
 
+# --- active frame-rate mode (informational) -------------------------------
+# The loader scripts in AviSynth\ set "fps=" (2 = x2, 3 = x3, 4 = x4,
+# 60 or absent = fixed 60 via the Framerate branches). The patch does not
+# change this - it only lifts the resolution cap - but the value is useful
+# when someone reports an issue.
+$loader = Get-ChildItem (Join-Path $potDir 'AviSynth') -Filter '*.avs' -File -ErrorAction SilentlyContinue |
+          Where-Object { $_.Name -like '1.*' } | Select-Object -First 1
+if ($loader) {
+    $fpsMatch = [regex]::Match([System.IO.File]::ReadAllText($loader.FullName), '(?m)^\s*fps\s*=\s*(\d+)')
+    if ($fpsMatch.Success) {
+        $fpsVal = [int]$fpsMatch.Groups[1].Value
+        $mode = switch ($fpsVal) {
+            2 { 'x2' }
+            3 { 'x3' }
+            4 { 'x4' }
+            default { 'fixed 60' }
+        }
+        Write-Both ("Frame-rate mode: {0} (fps={1}, from {2})" -f $mode, $fpsVal, $loader.Name)
+    } else {
+        Write-Both ("Frame-rate mode: fixed 60 (no fps= in {0})" -f $loader.Name)
+    }
+} else {
+    Write-Both 'Frame-rate mode: unknown (AviSynth loader scripts not found)'
+}
+
 # --- prerequisites --------------------------------------------------------
 $missingSvp = @()
 foreach ($dll in 'svpflow1.dll', 'svpflow2.dll') {
